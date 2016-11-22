@@ -1,0 +1,80 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="scotchTodo">
+  <head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Node/Angular Todo App</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"><!-- load bootstrap -->
+    <style>
+      html { overflow-y:scroll; }
+      body { padding-top:30px; }
+      #todo-list { margin-bottom:30px; }
+      .striked {
+        text-decoration: line-through;
+        color: #444;
+      }
+    </style>
+
+
+  </head>
+  <!-- SET THE CONTROLLER AND GET ALL TODOS -->
+  <body ng-controller="MainController">
+    <div class="container">
+
+      <!-- HEADER AND TODO COUNT -->
+      <div class="jumbotron text-center">
+        <h1>
+          I'm a Todo-aholic <span class="label label-info">{{ todos.length }}</span>
+        </h>
+      </div>
+
+      <!-- FORM TO CREATE TODOS -->
+      <div id="todo-form" class="row">
+        <div class="col-xs-12 text-center">
+          <form ng-submit="createTodo()">
+            <div class="form-group">
+              <div class="input-group ">
+                <input type="text" class="form-control input-lg text-center" placeholder="I want to buy a puppy that will love me forever" ng-model="formData.text">
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="glyphicon glyphicon-plus-sign"></i> Add
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div id="todo-list" class="row">
+        <div class="col-xs-12">
+          <ul class="list-group">
+            <li class="list-group-item" ng-repeat="todo in todos">
+                <span ng-class="{'striked':todo.done}">{{ todo.text }}</span>
+                <a class="badge" ng-click="updateTodo(todo)" ng-switch="todo.done">
+                  <i ng-switch-when="false" class="glyphicon glyphicon-ok"></i>
+                  <i ng-switch-when="true" class="glyphicon glyphicon-remove"></i>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+  </body>
+
+  <!-- SPELLS -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script><!-- load angular -->
+  <script src="app/core.app.js"></script>
+  <script src="app/todos/todo.controller.js"></script>
+  <script src="app/todos/todo.service.js"></script>
+</html>
